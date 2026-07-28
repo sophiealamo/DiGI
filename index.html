@@ -61,27 +61,27 @@
   h1 em{font-style:normal;color:#7fdcea}
   .lede{max-width:60ch;color:#c4dbe4;font-size:clamp(15px,1.6vw,18px);margin:0 0 34px}
 
-  /* directorio de países = filtros */
-  .directory{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  /* directorio de países = filtros (en toolbar, fondo claro) */
+  .directory{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
   .chip{
-    appearance:none;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);
-    color:#dCEBf0;font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;
-    padding:8px 13px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;
-    gap:8px;transition:background .16s,border-color .16s,color .16s,transform .16s}
-  .chip:hover{background:rgba(255,255,255,.13);transform:translateY(-1px)}
-  .chip .code{color:#8fd4df}
-  .chip .n{color:#9fb6c1;font-size:12px}
-  .chip[aria-pressed="true"]{background:#eaf3f7;color:var(--deep);border-color:#eaf3f7}
-  .chip[aria-pressed="true"] .code{color:var(--signal-deep)}
-  .chip[aria-pressed="true"] .n{color:var(--deep-2)}
+    appearance:none;border:1px solid var(--line);background:var(--surface);
+    color:var(--ink-soft);font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:500;
+    padding:7px 12px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;
+    gap:7px;transition:background .16s,border-color .16s,color .16s,transform .16s}
+  .chip:hover{border-color:#c2cfd8;transform:translateY(-1px)}
+  .chip .code{color:var(--signal-deep)}
+  .chip .n{color:var(--ink-faint);font-size:12px}
+  .chip[aria-pressed="true"]{background:var(--deep);color:#fff;border-color:var(--deep)}
+  .chip[aria-pressed="true"] .code{color:#8fd4df}
+  .chip[aria-pressed="true"] .n{color:#bcd6e0}
   .chip .swatch{width:9px;height:9px;border-radius:2px;display:inline-block}
 
   /* ---------- TOOLBAR ---------- */
-  .toolbar{position:sticky;top:0;z-index:20;background:rgba(238,242,245,.9);
+  .toolbar{position:sticky;top:0;z-index:20;background:rgba(238,242,245,.94);
     backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .toolbar-inner{display:flex;gap:16px;align-items:center;justify-content:space-between;
-    padding:14px 0;flex-wrap:wrap}
-  .search{position:relative;flex:1;min-width:220px;max-width:420px}
+  .toolbar-inner{display:flex;flex-direction:column;gap:11px;padding:12px 0}
+  .tb-row{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .search{position:relative;flex:1;min-width:200px;max-width:360px}
   .search input{width:100%;border:1px solid var(--line);background:var(--surface);
     border-radius:10px;padding:10px 14px 10px 38px;font-family:inherit;font-size:14.5px;
     color:var(--ink);transition:border-color .16s,box-shadow .16s}
@@ -92,6 +92,17 @@
   .count{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-soft);
     white-space:nowrap}
   .count b{color:var(--ink);font-weight:600}
+
+  /* ---------- WEEK CONTEXT (encima del grid) ---------- */
+  .week-context{padding:28px 0 4px;animation:ctxin .4s ease}
+  @keyframes ctxin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .wc-eyebrow{display:flex;align-items:center;gap:10px;font-family:"IBM Plex Mono",monospace;
+    font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--wc,var(--signal-deep));margin:0 0 8px}
+  .wc-eyebrow .bar{width:26px;height:3px;border-radius:2px;background:var(--wc,var(--signal-deep))}
+  .wc-title{font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:23px;
+    letter-spacing:-.015em;color:var(--ink);margin:0 0 6px}
+  .wc-lede{color:var(--ink-soft);max-width:74ch;font-size:15px;margin:0}
 
   /* ---------- GRID ---------- */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
@@ -191,10 +202,27 @@
   footer a{color:var(--deep-2);text-decoration:none;font-family:"IBM Plex Mono",monospace;font-size:12.5px}
   footer a:hover{color:var(--signal-deep)}
 
+  /* ---------- WEEK TABS ---------- */
+  .weeks{display:inline-flex;gap:4px;padding:4px;border-radius:12px;
+    background:#e2e8ee;border:1px solid var(--line);margin:0}
+  .weektab{appearance:none;border:0;background:transparent;color:var(--ink-soft);cursor:pointer;
+    font-family:"Space Grotesk",sans-serif;font-size:14px;font-weight:600;letter-spacing:-.01em;
+    padding:9px 16px;border-radius:9px;transition:background .16s,color .16s,box-shadow .16s;white-space:nowrap}
+  .weektab .wk{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-faint);margin-right:7px;
+    letter-spacing:.04em;font-weight:500}
+  .weektab:hover{color:var(--ink);background:rgba(255,255,255,.6)}
+  .weektab[aria-selected="true"]{background:var(--deep);color:#fff;box-shadow:var(--shadow)}
+  .weektab[aria-selected="true"] .wk{color:#8fd4df}
+
+  /* ---------- MODAL BADGES ---------- */
+  .badges{display:flex;flex-wrap:wrap;gap:7px;padding:16px 0 2px}
+  .badge{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:500;color:var(--signal-deep);
+    background:rgba(10,167,189,.1);border:1px solid rgba(10,167,189,.22);padding:5px 11px;border-radius:999px}
+
   @media (max-width:600px){
-    .hero-inner{padding:46px 0 32px}
-    .grid{grid-template-columns:1fr;gap:14px}
-    .sheet-body,.sheet-head{padding-left:22px;padding-right:22px}
+    .weeks{display:flex;width:100%}
+    .weektab{flex:1;text-align:center;padding:9px 8px;font-size:13px}
+    .weektab .wk{display:block;margin:0 0 2px}
   }
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
@@ -206,24 +234,34 @@
 <header class="hero">
   <div class="hero-inner wrap">
     <p class="eyebrow"><span class="dot"></span>Diplomatura en Gobernanza de Internet · Ejercicio de mapeo</p>
-    <h1>Atlas de políticas de <em>conectividad e inclusión digital</em> en América Latina</h1>
-    <p class="lede">Cada ficha es un policy brief hecho por participantes de la Diplomatura: una política pública real de su país, mapeada de punta a punta —población, teoría del cambio, actores, resultados. El trabajo de una cohorte, abierto como ejemplo para las que vienen.</p>
-    <nav class="directory" id="directory" aria-label="Filtrar por país"></nav>
+    <h1 id="hero-title">Atlas de iniciativas y políticas de <em>Internet</em> en América Latina</h1>
+    <p class="lede">Un atlas en dos partes: las <strong style="color:#bcd6e0;font-weight:600">iniciativas nacionales de gobernanza</strong> (Semana&nbsp;1) y las <strong style="color:#bcd6e0;font-weight:600">políticas de conectividad e inclusión</strong> (Semana&nbsp;2). Elegí una semana abajo y explorá las fichas por país.</p>
   </div>
   <div class="signal-line" aria-hidden="true"></div>
 </header>
 
 <div class="toolbar">
   <div class="toolbar-inner wrap">
-    <div class="search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="search" type="search" placeholder="Buscar por política, participante o país…" aria-label="Buscar">
+    <div class="tb-row">
+      <div class="weeks" role="tablist" aria-label="Elegir semana" id="weeks"></div>
+      <div class="count" id="count" aria-live="polite"></div>
     </div>
-    <div class="count" id="count" aria-live="polite"></div>
+    <div class="tb-row">
+      <nav class="directory" id="directory" aria-label="Filtrar por país"></nav>
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search" type="search" placeholder="Buscar…" aria-label="Buscar">
+      </div>
+    </div>
   </div>
 </div>
 
 <main class="wrap" id="main">
+  <div class="week-context" id="week-context" hidden>
+    <p class="wc-eyebrow" id="wc-eyebrow"><span class="bar"></span><span id="wc-eyebrow-txt"></span></p>
+    <h2 class="wc-title" id="wc-title"></h2>
+    <p class="wc-lede" id="wc-lede"></p>
+  </div>
   <div class="state" id="loading">
     <div class="spinner" aria-hidden="true"></div>
     Cargando el mapeo desde la planilla…
@@ -231,11 +269,11 @@
   <div class="grid" id="grid" hidden></div>
   <div class="state" id="empty" hidden>
     <h4>Sin resultados</h4>
-    No hay políticas que coincidan con este filtro. Probá con otro país o limpiá la búsqueda.
+    No hay fichas que coincidan con este filtro. Probá con otro país o limpiá la búsqueda.
   </div>
   <div class="state" id="error" hidden>
     <h4>No se pudo cargar el mapeo</h4>
-    Verificá que la planilla siga publicada como CSV y que el enlace sea accesible.
+    Verificá que la planilla esté compartida como “cualquiera con el enlace: lector” y que las pestañas se llamen “Semana 1” y “Semana 2”.
     <code id="errurl"></code>
   </div>
 </main>
@@ -257,8 +295,36 @@
 
 <script>
 /* ====== CONFIG ====== */
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQv_1aRZKq9TJ96RYuL-wncOXO94amRFKaNaYFcb83SZaMkCtD2HdUyArx8as7AIy12X1HpUrMLLTEX/pub?output=csv";
-const SHEET_LINK = CSV_URL.replace(/\/pub\?output=csv.*$/, "/pub");
+/* ID de la planilla (de la URL de edición). Las hojas se leen por nombre vía gviz,
+   así no hay que publicar cada pestaña por separado. Requisito: la planilla debe
+   estar compartida como "Cualquiera con el enlace: Lector". */
+const SHEET_ID = "1klppwAr48AQiQmsuJP5wFqsIgrfdsfCQhuF8tLlKhvY";
+const SHEET_LINK = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
+const gvizUrl = name =>
+  `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}`;
+
+/* ====== UTIL ====== */
+const $=(s,el=document)=>el.querySelector(s);
+const esc=s=>(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const clean=s=>(s||"").trim();
+function extractUrls(cell){
+  if(!cell) return [];
+  const m=cell.match(/https?:\/\/[^\s)"]+/g)||[];
+  return m.map(u=>u.replace(/[.,;]+$/,"")).filter((u,i,a)=>a.indexOf(u)===i);
+}
+// texto sin urls ni marcadores de fuente, para no duplicar con los chips de enlace
+function stripUrls(v){
+  return clean((v||"")
+    .replace(/\(\s*fuente[^)]*\)/gi,"")
+    .replace(/\(\s*Enlace externo\s*\)/gi,"")
+    .replace(/https?:\/\/[^\s)"]+/g,"")
+    .replace(/[ \t]{2,}/g," ")
+    .replace(/\(\s*\)/g,"")
+    .replace(/\s+([.,;:])/g,"$1")
+    .replace(/\n{3,}/g,"\n\n"));
+}
+const YES=/^s[ií]$/i;
+const yes=v=>YES.test(clean(v));
 
 /* ====== PAÍSES ====== */
 const COUNTRIES = {
@@ -270,181 +336,186 @@ const COUNTRIES = {
   "Trinidad y Tobago":{code:"TT",var:"--tt"}
 };
 function countryMeta(raw){
-  const name=(raw||"").trim();
+  const name=clean(raw);
   if(COUNTRIES[name]) return {name,...COUNTRIES[name]};
+  // detectar país conocido dentro de cadenas como "Brasil/Região LAC"
+  for(const k in COUNTRIES){ if(name.includes(k)) return {name:k,...COUNTRIES[k]}; }
   return {name:name||"—",code:(name.slice(0,2)||"··").toUpperCase(),var:"--xx"};
 }
 
-/* ====== UTIL ====== */
-const $=(s,el=document)=>el.querySelector(s);
-const esc=s=>(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function extractUrls(cell){
-  if(!cell) return [];
-  const m=cell.match(/https?:\/\/[^\s)]+/g)||[];
-  return m.map(u=>u.replace(/[.,;]+$/,"")).filter((u,i,a)=>a.indexOf(u)===i);
+/* ====== ESQUEMAS ======
+   Cada esquema convierte una fila (array de celdas) en un item normalizado:
+   { country, title, author, excerpt, tags:[], sections:[{label,value,kind}] }
+   kind: undefined=texto | 'sources'=solo enlaces | 'prop'=caja de propuesta */
+const sec=(label,value)=>({label,value:clean(value)});
+const srcSec=(label,value)=>({label,value:clean(value),kind:"sources"});
+
+const SCHEMA_S2 = {
+  key:"s2",
+  eyebrow:"Semana 2 · Infraestructura, conectividad y brechas",
+  wcTitle:"Políticas de conectividad e inclusión digital",
+  accent:"#087c8e",
+  lede:"Cada ficha es un policy brief: una política real de inclusión digital o conectividad, mapeada de punta a punta —población, teoría del cambio, actores, resultados—, con su reflexión a 10 años.",
+  searchPh:"Buscar por política, participante o país…",
+  noun:"política", nounPl:"políticas",
+  isHeader:r=>clean(r[0]).toLowerCase().startsWith("nombre")||clean(r[0]).toLowerCase().startsWith("semana"),
+  valid:r=>clean(r[0])&&clean(r[2]),
+  parse(r){
+    const tags=[]; if(clean(r[10])) tags.push("+ propuesta regulatoria");
+    const sections=[
+      sec("Descripción",r[3]),
+      srcSec("Fuentes",r[4]),
+      sec("Población objetivo",r[5]),
+      sec("Objetivos y teoría del cambio",r[6]),
+      sec("Tipo de intervención",r[7]),
+      sec("Actores involucrados y financiamiento",r[8]),
+      sec("Resultados y sostenibilidad",r[9])
+    ];
+    if(clean(r[10])){
+      sections.push({label:"Segunda propuesta · regulación en escuelas",kind:"prop",
+        name:clean(r[10]),value:clean(r[11]),src:clean(r[12])});
+    }
+    return { country:r[1], title:clean(r[2]), author:clean(r[0]),
+      excerpt:clean(r[3])||clean(r[6]), tags, sections:sections.filter(s=>s.value||s.kind==="prop") };
+  }
+};
+
+const SCHEMA_S1 = {
+  key:"s1",
+  eyebrow:"Semana 1 · Instituciones y gobernanza de Internet",
+  wcTitle:"Iniciativas nacionales de gobernanza de Internet",
+  accent:"#1c5680",
+  lede:"Cada ficha releva una iniciativa nacional de gobernanza de Internet —su comité, financiamiento, ediciones y agenda—, con la lectura de cada participante sobre su modelo multistakeholder, su impacto y qué recomendaría.",
+  searchPh:"Buscar por iniciativa, participante o país…",
+  noun:"iniciativa", nounPl:"iniciativas",
+  isHeader:r=>clean(r[0]).toLowerCase().startsWith("nombre")||clean(r[0]).toLowerCase().startsWith("pseudónimo")&&clean(r[2]).toLowerCase().includes("nombre"),
+  valid:r=>clean(r[0])&&clean(r[2]),
+  parse(r){
+    const tags=[];
+    const edb=edicionesBadge(r[13]); if(edb) tags.push(edb);
+    if(yes(r[20])) tags.push("IGF NRI");
+    if(yes(r[15])) tags.push("Oradores int’l");
+    if(yes(r[18])) tags.push("Participación remota");
+    const sections=[
+      sec(committeeLabel(r[3]),r[4]),
+      sec(intersessLabel(r[5]),r[6]),
+      sec("Fuentes de financiamiento",r[7]),
+      sec("Resultados producidos",r[8]),
+      sec("Registros producidos",r[9]),
+      sec(assocLabel(r[10]),r[11]),
+      sec("Ediciones",r[13]),
+      sec("Temas de la última agenda",r[14]),
+      sec("Selección de temas de agenda",r[16]),
+      sec("Participación",r[17]),
+      sec("Sitio web y canales",r[12]),
+      sec("Perspectiva sobre la gobernanza multistakeholder",r[21]),
+      sec("Impacto en el ecosistema",r[22]),
+      sec("Recomendaciones",r[23])
+    ];
+    return { country:r[1], title:clean(r[2]), author:clean(r[0]),
+      excerpt:clean(r[21])||clean(r[4])||clean(r[22]), tags,
+      sections:sections.filter(s=>s.value) };
+  }
+};
+function committeeLabel(v){ return yes(v)?"Secretaría / comité de organización":"Organización"; }
+function intersessLabel(v){ return "Trabajo entre sesiones"; }
+function assocLabel(v){ return "Asociación con otros proyectos"; }
+function edicionesBadge(v){
+  v=clean(v); if(!v) return null;
+  const w={un:1,una:1,dos:2,tres:3,cuatro:4,cinco:5,seis:6,siete:7,ocho:8,nueve:9,diez:10,once:11,doce:12};
+  let m=v.match(/(\d+)\s*(?:edici|foro)/i); if(m) return m[1]+" ediciones";
+  m=v.match(new RegExp("\\b("+Object.keys(w).join("|")+")\\s+(?:edici|foro)","i"));
+  if(m) return w[m[1].toLowerCase()]+" ediciones";
+  m=v.match(/\b([1-9]\d?)\b/); if(m) return m[1]+" ediciones";
+  for(const k in w){ if(new RegExp("\\b"+k+"\\b","i").test(v)) return w[k]+" ediciones"; }
+  return null;
 }
-const clean=s=>(s||"").trim();
 
-let ALL=[], filterCountry="ALL", query="", liveLoaded=false;
-
-/* ====== FALLBACK EMBEBIDO ======
-   Muestra de registros reales para poder previsualizar el atlas sin conexión
-   (abriendo el archivo localmente). Al publicarlo, el fetch en vivo de abajo
-   reemplaza esto por el contenido completo de la planilla. */
-const EMBEDDED_ROWS=[
-["João Vitor Zaidan","Brasil","Política Nacional de Banda Larga",
-`Creada en 2010 por el gobierno federal de Brasil, con el objetivo de llevar la conexión a internet de banda larga a regiones del país sin acceso. La principal iniciativa y meta fue la oferta de internet de 1 Mbps por R$35 mensuales. 5.384 municipios fueron beneficiados hasta 2016; el programa también ofrecía internet vía satélite gratuita para puntos colectivos. Es criticada por una meta insuficiente —1 Mbps ya era muy bajo en 2010— y por una noción corta de inclusión digital, sin habilidades digitales. Fue descontinuada en 2016 sin reemplazo de igual alcance. En 2025, el Tribunal de Cuentas de la Unión ordenó crear un plan nacional de inclusión digital.`,
-"https://www.gov.br/anatel/pt-br/regulado/universalizacao/plano-nacional-de-banda-larga","","","","","",
-"Lei nº 15.100/2025 y Estratégia Nacional de Escolas Conectadas",
-`Esta ley prohíbe totalmente el uso de dispositivos electrónicos portátiles, especialmente móviles, por estudiantes en escuelas. Fue objeto de muchos debates en Brasil por su objetivo de mitigar los problemas del uso excesivo de pantallas en el ambiente escolar. Las primeras respuestas fueron buenas, con relatos de estudiantes más atentos y concentrados. En paralelo, en 2023 el gobierno lanzó la Estrategia Nacional de Escuelas Conectadas, que busca expandir la conectividad de las escuelas hasta 2026 con foco pedagógico.`,
-"https://www.planalto.gov.br/ccivil_03/_Ato2023-2026/2025/Lei/L15100.htm"],
-
-["Thobias Prado Moura","Brasil","Plano Nacional de Inclusão Digital (PNID)",
-`El PNID es la apuesta del gobierno brasileño para reducir las desigualdades de acceso a la tecnología. Nacido en 2023, busca coordinar acciones antes dispersas en distintas áreas: educación y habilidades digitales, diversidad, ciudades y periferias, zonas rurales y salud. Su objetivo es que todas las regiones —incluidas comunidades indígenas, quilombolas y territorios remotos— tengan conectividad de calidad y oportunidades de participación digital. A través del Grupo de Trabajo Interministerial (GTI-PNID) se escucha a la sociedad civil, investigadores y comunidades locales. También aborda seguridad digital, gobernanza tecnológica y derechos digitales.`,
-"https://www.gov.br/mcom/pt-br/assuntos/plano-nacional-de-inclusao-digital",
-"Comunidades indígenas, quilombolas, zonas rurales remotas, periferias urbanas, personas con discapacidad, mujeres, juventudes y adultos mayores con barreras de acceso, uso y habilidades digitales.",
-`Ampliar la conectividad de calidad en todo el país, fortalecer habilidades digitales en todas las etapas de la vida, reducir brechas territoriales y sociales y garantizar un entorno digital seguro y basado en derechos. La teoría del cambio sostiene que, al coordinar infraestructura, capacitación, diversidad, seguridad digital y participación comunitaria bajo un marco interministerial, el Estado crea condiciones para que poblaciones históricamente excluidas accedan, usen y se beneficien plenamente de la tecnología.`,
-`Política integral que articula: (1) expansión de infraestructura de conectividad urbana, rural y remota; (2) programas de alfabetización y habilidades digitales; (3) acciones específicas de inclusión para comunidades indígenas, quilombolas, mujeres y personas con discapacidad; (4) seguridad digital y protección de derechos; y (5) coordinación interministerial con sociedad civil.`,
-`Implementado por el Gobierno Federal bajo coordinación del Ministerio de Comunicaciones (MCom) y del GTI-PNID, que reúne ministerios de educación, salud, derechos humanos, pueblos indígenas, ciencia y tecnología y desarrollo social. El financiamiento proviene del presupuesto federal (recursos del Novo PAC), con inversiones previstas de ~R$6,5 mil millones, más una propuesta de US$100 millones con el BID para municipios de hasta 30 mil habitantes.`,
-`Resultados esperados: expansión de conectividad de calidad, aumento de habilidades digitales, reducción de brechas territoriales, sociales y étnicas, y mayor participación ciudadana. Sostenibilidad: se basa en la coordinación interministerial permanente del GTI-PNID, la participación de comunidades locales y la diversificación de fuentes de financiamiento, lo que crea una política resiliente a cambios de gobierno.`,
-"LEI Nº 15.211/2025 (ECA Digital)",
-`Dispone sobre la protección de niños, niñas y adolescentes en entornos digitales. Impone obligaciones a plataformas, redes sociales, juegos en línea y servicios digitales: verificación de edad, diseño preventivo de seguridad, supervisión parental, retirada rápida de contenidos ilícitos y prohibición de publicidad dirigida a menores. La ANPD pasa a ser autoridad reguladora independiente y la Anatel ejecutará bloqueos judiciales cuando sea necesario.`,
-"https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/L15211.htm"],
-
-["Gina Francini","Argentina","Conectar Igualdad",
-`Conectar Igualdad fue un programa del Ministerio de Educación argentino desarrollado entre 2010 y 2017 en base al Modelo 1 a 1: las instituciones proveen un dispositivo a cada estudiante para acceder a recursos educativos digitales. El despliegue combinó entrega de equipos, instalación de red y servidores, desarrollo de contenidos y capacitación docente. Para 2015 se habían entregado, junto con ANSES, más de 5 millones de netbooks, asignadas por número de documento. Si el estudiante egresaba aprobando, se quedaba con la computadora.`,
-"https://udesa.edu.ar/noticias/conectar-igualdad ; https://www.anses.gob.ar/sites/default/files/2022-05/DT_Conectar%20Igualdad.pdf",
-"Estudiantes de escuelas públicas de nivel primario y secundario de todo el país.",
-`Argentina presentaba una gran brecha digital, acrecentada por el nivel socioeconómico y territorial, que generaba analfabetismo digital entre los estudiantes con menor acceso. El objetivo del programa es reducir la brecha digital entre estudiantes de primaria y secundaria, orientado a escuelas públicas, otorgando acceso a una computadora.`,
-`Intervención directa compensatoria: no subsidia la compra ni provee a las escuelas, sino que entrega los equipos directamente a los estudiantes para compensar la brecha de acceso.`,
-`Los organismos involucrados son ANSES, la Jefatura de Gabinete de Ministros y el Ministerio de Educación, cuya partida presupuestaria contempla todos los gastos: compra de netbooks, logística, instalación de redes y soporte técnico.`,
-`La computadora fue la primera del hogar para el 29% de los estudiantes beneficiados; cinco años después, el 16% declaró que era la única del hogar. El programa se mantuvo 7 años, se pausó en 2018 y, tras intentos de continuidad, se suspendió de forma definitiva en 2024.`,
-"","",""],
-
-["Ignacio Sánchez González","Chile","Ley N.º 21.678: acceso a Internet como servicio público",
-`La norma modifica la Ley General de Telecomunicaciones N.º 18.168 e incorpora el acceso a Internet dentro de los servicios públicos, fijando principios de neutralidad tecnológica, universalidad, continuidad, convergencia, uso compartido de infraestructura y transparencia. Mandata un Plan Nacional Digital a cargo del Ministerio de Transportes y Telecomunicaciones, que definirá políticas de espectro, conectividad, ciberseguridad, accesibilidad universal y calidad. Con esta ley, Chile se suma a los países que reconocen el acceso a Internet como derecho habilitante del desarrollo.`,
-"https://www.bcn.cl/leychile/navegar?idNorma=1204651",
-`Todos los habitantes del territorio nacional, con énfasis en sectores rurales o apartados. El principio de universalidad busca asegurar la inclusión digital de toda la población sin importar su ubicación geográfica, corrigiendo la inequidad en áreas no comercialmente atractivas.`,
-`Reconocer el acceso a Internet como servicio público y someterlo al mismo régimen que otros servicios, con obligaciones de continuidad, calidad y cobertura, especialmente donde el mercado no llega. El cambio pasa por modificar el marco jurídico, definir un Plan Nacional Digital y usar el Fondo de Desarrollo de las Telecomunicaciones y el subsidio a la demanda.`,
-`Intervención normativa y regulatoria de alcance nacional que reconfigura la naturaleza del servicio y su régimen de obligaciones para los concesionarios, incorporando accesibilidad, continuidad, calidad y sostenibilidad.`,
-`La ejecución y fiscalización quedan a cargo del Ministerio de Transportes y Telecomunicaciones a través de SUBTEL. Participan concesionarias, comunidades de telecomunicaciones y gobiernos regionales, con financiamiento mixto. El Fondo de Desarrollo de las Telecomunicaciones se redefine como instrumento de inversión pública y subsidio social, pudiendo subsidiar el pago del servicio a hogares vulnerables.`,
-`Introduce una obligación de prestación regular e ininterrumpida y define sanciones por incumplimiento. El FDT es la principal herramienta para garantizar continuidad y mantenimiento de las redes en zonas rurales, asegurando su viabilidad a largo plazo.`,
-"","",""],
-
-["Camila Breventano","Uruguay","Programa Ibirapitá",
-`Ibirapitá es un programa estatal, fundado en 2015 por el Decreto 130/15, que promueve la inclusión digital de las personas mayores en Uruguay, particularmente jubilados y pensionistas mayores de 65 años con ingresos bajos. Genera propuestas que fomentan el uso y la apropiación de las TIC a través de espacios de aprendizaje, participación y relacionamiento. Brinda acceso a dispositivos móviles y cuenta con canal de YouTube, una App, talleres presenciales y virtuales y cuatro líneas temáticas: entretenimiento saludable, ciudadanía digital, democratización de la cultura y envejecimiento creativo.`,
-"https://ibirapita.org.uy/",
-"Jubilados y pensionistas mayores de 65 años, residentes en Uruguay, que no estén en actividad y cuyos ingresos no superen ciertos topes (5 u 8 BPC).",
-`Promover la inclusión digital de las personas mayores. La teoría del cambio postula que, al facilitar el acceso y fomentar el uso y la apropiación de las TIC, se mejora la inserción social, la participación y la equidad, promoviendo un envejecimiento activo y en vínculo con la comunidad.`,
-`Modelo enfocado en la asequibilidad y la demanda: dispositivo móvil sin costo y un Plan Móvil Ibirapitá subsidiado por Antel, más la Comunidad Ibirapitá con talleres de uso y espacios de participación.`,
-`Actores: sector público (BPS), ANTEL como proveedor del plan móvil, y otras instituciones. Financiamiento estatal gestionado a través del Centro Ceibal, con subsidio a la demanda.`,
-`Facilita el acceso a un celular y un plan móvil subsidiado y busca contribuir a la inserción social y a un envejecimiento activo. La sostenibilidad depende de crear condiciones para el desarrollo de habilidades digitales —los talleres y herramientas más allá del dispositivo— y de mantener el vínculo con instituciones aliadas.`,
-"","",""],
-
-["Dana Beltrán Barbosa","Colombia","Programa Computadores para Educar",
-`Iniciativa social del Gobierno colombiano que busca cerrar brechas sociales y regionales mediante el acceso, uso y aprovechamiento de las TIC en instituciones educativas oficiales, casas de la cultura, bibliotecas y centros comunitarios. Inició el 15 de marzo de 2001 y sigue vigente. Sus tres pilares son acceso a la tecnología, formación docente y de usuarios, y responsabilidad ambiental (reutilización de equipos y gestión de residuos electrónicos). El proceso incluye recepción de donaciones, reacondicionamiento, instalación de software legal y distribución a las sedes.`,
-"https://www.computadoresparaeducar.gov.co/publicaciones/3/historia/",
-"Sedes educativas, casas de la cultura y bibliotecas públicas; y en capacitación, docentes, familias y estudiantes.",
-`Impulsar la innovación educativa con tecnologías digitales. Parte del diagnóstico de que existen brechas de acceso y apropiación en las escuelas públicas y de que dotar de tecnología sin acompañamiento pedagógico reduce el impacto. Combina dotación de equipos, formación docente, acompañamiento pedagógico y gestión ambiental para mejorar la calidad educativa y reducir brechas.`,
-`Intervención integral orientada al desarrollo social y educativo, con articulación entre MinTIC y MinEducación. Combina infraestructura, capacitación, sostenibilidad ambiental y gestión institucional, alineada con los ODS 4, 9, 10 y 12.`,
-`Entidades: MinTIC (coordinación y aspectos técnicos), Departamento Nacional de Planeación (asesoría administrativa), MinEducación (aspectos pedagógicos y selección de beneficiarios) y SENA (adecuación de equipos y capacitación). Opera con recursos del Fondo Único de las TIC —por ejemplo, 173.000 millones de pesos en 2025— además de donaciones.`,
-`Desde 2001 hasta agosto de 2025: 2.663.779 equipos entregados, 167.704 docentes formados y 472.636 equipos retomados. Sostenibilidad: en zonas rurales muchos equipos quedan obsoletos o sin uso adecuado ("computadores para amontonar"), con problemas energéticos y demoras técnicas por la centralización en Bogotá.`,
-"","",""],
-
-["Javed Sajad","Trinidad y Tobago","WeLearn TT (MPAAI)",
-`WeLearnTT + AccessTT ICT Centres: capacitación en habilidades digitales sin costo, con campamentos a medida para preadolescentes, adolescentes y adultos mayores. Formación y mentoría gratuitas; las alianzas amplían la oferta de cursos para que las habilidades deriven en empleabilidad y participación en línea. Aprendizaje combinado (blended) a través de centros TIC del gobierno y plataformas socias. Más de 4.150 aprendices desde noviembre de 2023; el primer campamento de adultos mayores de 2024 formó a más de 100 personas de 55 a 92 años en 14 centros.`,
-"https://mpaai.gov.tt/initiatives/welearntt","","","","","","","",""],
-
-["Constanza Nofal","Argentina","Plan Nacional de Infraestructura Crítica de Comunicaciones",
-`Aprobado por ENACOM en mayo de 2025, es una política pública estratégica orientada a garantizar la conectividad universal y reducir la brecha digital en Argentina. Impulsa la construcción de infraestructura avanzada —centros de datos, redes de fibra óptica y nodos de alta capacidad— mediante asignaciones público-privadas, especialmente en zonas desatendidas. Contempla redes de acceso móvil en áreas sin cobertura (de uso compartido obligatorio), una red mayorista neutral, despliegue de última milla y créditos a tasa subsidiada para PyMEs y cooperativas.`,
-"https://www.enacom.gob.ar/multimedia/normativas/2025/res359.pdf",
-"Zonas rurales y desatendidas, PyMEs TIC, cooperativas y ciudadanía en general.",
-"Garantizar conectividad universal y reducir brechas digitales.",
-"Despliegue de redes móviles y fibra óptica, creación de una Red Mayorista Neutral, créditos y provisión de equipamiento.",
-"ENACOM, operadores TIC, PyMEs y cooperativas. Financiamiento: Fondo de Servicio Universal (1% de los ingresos de los operadores).",
-`Metas a 5 años: cobertura nacional, reducción de costos mayoristas y fortalecimiento de PyMEs TIC. Sostenibilidad basada en aportes obligatorios, auditorías y trazabilidad, con infraestructura de uso compartido obligatorio entre prestadores.`,
-"","",""],
-
-["Silvina Alkerman","Argentina","Nodo TAU",
-`Nodo TAU es una OSC con sede en Rosario, integrada por profesionales de la informática y las comunicaciones, educadores y militantes sociales, que desde 1995 apoya a organizaciones comunitarias en el acceso a las nuevas tecnologías y la superación de la exclusión digital, con enfoque en interseccionalidad y derechos humanos. Su enfoque es de alfabetización digital crítica y apropiación tecnológica: no se limita al hardware, sino que aborda lo educativo, técnico, político y social. Busca cerrar no solo la brecha de acceso, sino la brecha de sentido.`,
-"https://tau.org.ar",
-"Organizaciones comunitarias, barriales, eclesiales, de género, ambientales, cooperativas, grupos de base, escuelas y centros comunitarios.",
-`Promover el uso social y significativo de las TIC, garantizar los derechos digitales y desarrollar capacidades críticas. La teoría del cambio se basa en la educación como palanca de transformación: una formación crítica y contextualizada permite a las organizaciones apropiarse de la tecnología, participar cívicamente y exigir sus derechos, hacia una sociedad digital más justa.`,
-`Formación, capacitación e incidencia comunitaria y en políticas públicas. Talleres presenciales y virtuales, trabajo en red con otras organizaciones y participación en foros de gobernanza de Internet y debates legislativos.`,
-`Integrada por profesionales, educadores y militantes, con convenios con organizaciones comunitarias, universidades, redes regionales e internacionales, gobiernos y sindicatos. Financiamiento: apoyo de la Fundación Avina al programa enREDando; su sostenibilidad depende de la diversificación de fondos y del financiamiento de largo plazo de organizaciones con intereses en derechos digitales.`,
-`Su trayectoria y supervivencia prueban resultados positivos: capacitación de gran cantidad de personas, incidencia activa en foros y redes, desarrollo de recursos y vínculo comunitario. Sostenibilidad humana e institucional alta; la financiera es una búsqueda constante que exige diversificación.`,
-"","",""],
-
-["Agustina Santos","Uruguay","Plan Ceibal",
-`Es el centro de innovación educativa con tecnología del Estado uruguayo. Promueve la integración de tecnologías digitales a la educación para mejorar los aprendizajes e impulsar procesos de innovación, inclusión y crecimiento personal. Es una persona jurídica de derecho público no estatal (ley 18.640).`,
-"https://ceibal.edu.uy/",
-"Estudiantes y docentes de la educación pública de Uruguay.",
-`Promueve la integración de la tecnología a la educación para mejorar aprendizajes e impulsar innovación, inclusión y crecimiento personal. Es una intervención sistémica: no solo otorga recursos, sino que despliega una cadena de valor que va de la entrega de dispositivos a la alfabetización, conexión, capacitación y desarrollo, esperando resultados en todo el ecosistema de la educación pública.`,
-"Política pública de educación e inclusión digital.",
-`Cuenta con un Consejo de Dirección Honorario integrado por delegados del Ministerio de Educación y Cultura, la ANEP y el Ministerio de Economía y Finanzas. Su principal financiación es el Presupuesto del Estado, con fuentes complementarias para proyectos.`,
-`Sostenibilidad destacada: se mantiene desde 2007 con crecimiento. Resultados: 3.100.444 laptops y tablets entregadas entre 2007 y 2024; 100% de los centros con wifi y 100% de la matrícula (778.400 personas) con banda ancha a diciembre de 2024; 1.638 centros con videoconferencia.`,
-"","",""]
+const WEEKS = [
+  { key:"s1", tab:"Semana 1", sub:"Gobernanza de Internet", sheet:"Semana 1", schema:SCHEMA_S1 },
+  { key:"s2", tab:"Semana 2", sub:"Conectividad e inclusión", sheet:"Semana 2", schema:SCHEMA_S2 }
 ];
 
-/* ====== LOAD ====== */
-document.addEventListener("DOMContentLoaded",()=>{
-  // 1) render inmediato con la muestra embebida (funciona sin conexión)
-  try{ build(EMBEDDED_ROWS,true); }catch(e){ console.error(e); }
-  // 2) intento de actualización en vivo desde la planilla publicada
-  if(window.Papa&&Papa.parse){
-    try{
-      Papa.parse(CSV_URL,{
-        download:true, skipEmptyLines:"greedy",
-        complete:res=>{ try{ if(res&&res.data&&res.data.length){ const keep=filterCountry; build(res.data,false); filterCountry=keep; syncChips(); render(); } }catch(e){ console.warn("Fetch en vivo falló, se mantiene la muestra:",e); } },
-        error:()=>{}
-      });
-    }catch(e){}
-  }
-});
-function showError(){
-  $("#loading").hidden=true;
-  $("#errurl").textContent=CSV_URL;
-  $("#error").hidden=false;
+/* ====== ESTADO ====== */
+let ALL=[], filterCountry="ALL", query="", current=WEEKS[0], reqToken=0;
+
+/* ====== TABS DE SEMANA ====== */
+function buildWeeks(){
+  const box=$("#weeks"); box.innerHTML="";
+  WEEKS.forEach(w=>{
+    const b=document.createElement("button");
+    b.className="weektab"; b.setAttribute("role","tab");
+    b.setAttribute("aria-selected",w.key===current.key);
+    b.innerHTML=`<span class="wk">${esc(w.tab.replace("Semana ","S"))}</span>${esc(w.sub)}`;
+    b.addEventListener("click",()=>{ if(w.key!==current.key) selectWeek(w); });
+    box.appendChild(b);
+  });
+}
+function syncWeeks(){ document.querySelectorAll(".weektab").forEach((b,i)=>
+  b.setAttribute("aria-selected",WEEKS[i].key===current.key)); }
+
+function setWeekContext(schema){
+  const wc=$("#week-context");
+  wc.style.setProperty("--wc",schema.accent);
+  $("#wc-eyebrow-txt").textContent=schema.eyebrow;
+  $("#wc-title").textContent=schema.wcTitle;
+  $("#wc-lede").textContent=schema.lede;
+}
+function selectWeek(w){
+  current=w; filterCountry="ALL"; query="";
+  $("#search").value=""; $("#search").placeholder=w.schema.searchPh;
+  setWeekContext(w.schema);
+  syncWeeks();
+  $("#grid").hidden=true; $("#empty").hidden=true; $("#error").hidden=true;
+  $("#week-context").hidden=true; $("#loading").hidden=false;
+  $("#directory").innerHTML=""; $("#count").innerHTML="";
+  // subir el foco a la barra para que el cambio de semana se perciba
+  const y=$(".toolbar").offsetTop;
+  if(window.scrollY>y) window.scrollTo({top:y,behavior:"smooth"});
+  loadWeek(w);
 }
 
-function build(rows,isFallback){
+/* ====== CARGA (fetch en vivo) ====== */
+function loadWeek(w){
+  const token=++reqToken;
+  Papa.parse(gvizUrl(w.sheet),{
+    download:true, skipEmptyLines:"greedy",
+    complete:res=>{ if(token!==reqToken) return; try{ build(res.data,w.schema);}catch(e){ console.error(e); showError(); } },
+    error:()=>{ if(token===reqToken) showError(); }
+  });
+}
+function showError(){
+  $("#loading").hidden=true; $("#grid").hidden=true; $("#empty").hidden=true;
+  $("#errurl").textContent=SHEET_LINK; $("#error").hidden=false;
+}
+
+function build(rows,schema){
   const items=[];
   rows.forEach(r=>{
-    const name=clean(r[0]), country=clean(r[1]), policy=clean(r[2]);
-    if(!name||!policy) return;
-    if(name.toLowerCase().startsWith("nombre y apellido")) return;
-    if(name.toLowerCase().startsWith("semana")) return;
-    items.push({
-      name, policy, cm:countryMeta(country),
-      desc:clean(r[3]), src:clean(r[4]),
-      target:clean(r[5]), goals:clean(r[6]), intervention:clean(r[7]),
-      actors:clean(r[8]), results:clean(r[9]),
-      propName:clean(r[10]), propDesc:clean(r[11]), propSrc:clean(r[12])
-    });
+    if(!r||!schema.valid(r)) return;
+    if(schema.isHeader(r)) return;
+    const it=schema.parse(r);
+    it.cm=countryMeta(it.country);
+    items.push(it);
   });
-  if(!items.length){ if(isFallback&&!ALL.length) showError(); return; }
   ALL=items;
+  if(!ALL.length){ showError(); return; }
   ALL.forEach((it,i)=>it.reg="N."+String(i+1).padStart(2,"0"));
-  if(!isFallback) liveLoaded=true;
-  $("#loading").hidden=true;
-  $("#error").hidden=true;
-  $("#grid").hidden=false;
+  $("#loading").hidden=true; $("#error").hidden=true;
+  $("#week-context").hidden=false; $("#grid").hidden=false;
   $("#sheetlink").href=SHEET_LINK;
-  buildDirectory();
-  render();
+  buildDirectory(); render();
 }
 
-/* ====== DIRECTORY / FILTERS ====== */
+/* ====== DIRECTORIO / FILTROS ====== */
 function buildDirectory(){
   const counts={}; ALL.forEach(it=>counts[it.cm.name]=(counts[it.cm.name]||0)+1);
   const order=Object.keys(COUNTRIES).filter(c=>counts[c]);
   Object.keys(counts).forEach(c=>{if(!order.includes(c))order.push(c);});
-  const dir=$("#directory");
-  dir.innerHTML="";
+  const dir=$("#directory"); dir.innerHTML="";
   const mk=(label,code,val,n,key)=>{
     const b=document.createElement("button");
-    b.className="chip"; b.setAttribute("aria-pressed",key===filterCountry);
-    b.dataset.key=key;
+    b.className="chip"; b.setAttribute("aria-pressed",key===filterCountry); b.dataset.key=key;
     b.innerHTML=(val?`<span class="swatch" style="background:var(${val})"></span>`:"")+
       (code?`<span class="code">${esc(code)}</span> `:"")+
       `<span>${esc(label)}</span>`+(n!=null?` <span class="n">${n}</span>`:"");
@@ -454,10 +525,8 @@ function buildDirectory(){
   dir.appendChild(mk("Todos","","",ALL.length,"ALL"));
   order.forEach(c=>{const m=countryMeta(c);dir.appendChild(mk(c,m.code,m.var,counts[c],c));});
 }
-function syncChips(){
-  document.querySelectorAll(".chip").forEach(c=>
-    c.setAttribute("aria-pressed",c.dataset.key===filterCountry));
-}
+function syncChips(){ document.querySelectorAll(".chip").forEach(c=>
+  c.setAttribute("aria-pressed",c.dataset.key===filterCountry)); }
 
 /* ====== RENDER ====== */
 function render(){
@@ -465,28 +534,27 @@ function render(){
   const list=ALL.filter(it=>{
     if(filterCountry!=="ALL"&&it.cm.name!==filterCountry) return false;
     if(!q) return true;
-    return (it.policy+" "+it.name+" "+it.cm.name).toLowerCase().includes(q);
+    return (it.title+" "+it.author+" "+it.cm.name).toLowerCase().includes(q);
   });
-  const grid=$("#grid");
-  grid.innerHTML="";
-  $("#count").innerHTML=`<b>${list.length}</b> ${list.length===1?"política":"políticas"}`;
+  const grid=$("#grid"); grid.innerHTML="";
+  $("#count").innerHTML=`<b>${list.length}</b> ${list.length===1?current.schema.noun:current.schema.nounPl}`;
   $("#empty").hidden=list.length>0;
   grid.hidden=list.length===0;
   list.forEach((it,i)=>{
     const card=document.createElement("button");
     card.className="card"; card.style.setProperty("--pc",`var(${it.cm.var})`);
-    card.style.animationDelay=Math.min(i*38,420)+"ms";
+    card.style.animationDelay=Math.min(i*36,420)+"ms";
     card.innerHTML=`
       <div class="card-top">
         <span class="flag"><span class="dotc"></span>${esc(it.cm.code)}
           <span class="country">${esc(it.cm.name)}</span></span>
         <span class="reg">${esc(it.reg)}</span>
       </div>
-      <h3>${esc(it.policy)}</h3>
-      <p class="excerpt">${esc(it.desc||it.goals||"")}</p>
+      <h3>${esc(it.title)}</h3>
+      <p class="excerpt">${esc(stripUrls(it.excerpt))}</p>
       <div class="card-foot">
-        <span class="author">${esc(it.name)}</span>
-        ${it.propName?`<span class="tag">+ propuesta regulatoria</span>`:""}
+        <span class="author">${esc(it.author)}</span>
+        ${it.tags[0]?`<span class="tag">${esc(it.tags[0])}</span>`:""}
       </div>`;
     card.addEventListener("click",()=>openSheet(it));
     grid.appendChild(card);
@@ -500,11 +568,27 @@ function sourcesHtml(cell){
   if(!urls.length) return "";
   const ico=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg>`;
   return `<div class="sources">`+urls.map((u,i)=>
-    `<a class="src" href="${esc(u)}" target="_blank" rel="noopener">${ico}Fuente ${urls.length>1?i+1:""}</a>`
+    `<a class="src" href="${esc(u)}" target="_blank" rel="noopener">${ico}Enlace ${urls.length>1?i+1:""}</a>`
   ).join("")+`</div>`;
 }
-function section(label,val){ return val?`<div class="sec"><h5>${label}</h5><p>${esc(val)}</p></div>`:""; }
-
+function renderSection(s){
+  if(s.kind==="prop"){
+    return `<div class="sec"><h5>${esc(s.label)}</h5>
+      <div class="prop"><span class="proptag">Propuesta</span>
+        ${s.name?`<p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;margin:2px 0 10px">${esc(s.name)}</p>`:""}
+        ${s.value?`<p>${esc(s.value)}</p>`:""}
+        ${sourcesHtml(s.src)}
+      </div></div>`;
+  }
+  if(s.kind==="sources"){
+    const h=sourcesHtml(s.value);
+    return h?`<div class="sec"><h5>${esc(s.label)}</h5>${h}</div>`:"";
+  }
+  const txt=stripUrls(s.value);
+  const links=sourcesHtml(s.value);
+  if(!txt&&!links) return "";
+  return `<div class="sec"><h5>${esc(s.label)}</h5>${txt?`<p>${esc(txt)}</p>`:""}${links}</div>`;
+}
 function openSheet(it){
   $("#sheet-head").innerHTML=`
     <div class="barcode" aria-hidden="true"></div>
@@ -514,26 +598,11 @@ function openSheet(it){
       <span style="color:#bcd6e0">${esc(it.cm.name)}</span>
       <span class="reg2">${esc(it.reg)}</span>
     </div>
-    <h2 id="sheet-title">${esc(it.policy)}</h2>
-    <div class="by">Relevado por ${esc(it.name)}</div>`;
-
+    <h2 id="sheet-title">${esc(it.title)}</h2>
+    <div class="by">Relevado por ${esc(it.author)}</div>`;
   let body="";
-  body+=section("Descripción",it.desc);
-  const srcMain=sourcesHtml(it.src);
-  if(srcMain) body+=`<div class="sec"><h5>Fuentes</h5>${srcMain}</div>`;
-  body+=section("Población objetivo",it.target);
-  body+=section("Objetivos y teoría del cambio",it.goals);
-  body+=section("Tipo de intervención",it.intervention);
-  body+=section("Actores involucrados y financiamiento",it.actors);
-  body+=section("Resultados y sostenibilidad",it.results);
-  if(it.propName){
-    body+=`<div class="sec"><h5>Segunda propuesta · regulación en escuelas</h5>
-      <div class="prop"><span class="proptag">Propuesta</span>
-        <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;margin:2px 0 10px">${esc(it.propName)}</p>
-        ${it.propDesc?`<p>${esc(it.propDesc)}</p>`:""}
-        ${sourcesHtml(it.propSrc)}
-      </div></div>`;
-  }
+  if(it.tags.length) body+=`<div class="badges">`+it.tags.map(t=>`<span class="badge">${esc(t)}</span>`).join("")+`</div>`;
+  body+=it.sections.map(renderSection).join("");
   $("#sheet-body").innerHTML=body;
   $("#sheet-body").scrollTop=0;
   overlay.hidden=false;
@@ -542,8 +611,7 @@ function openSheet(it){
   $("#closeb").focus();
 }
 function closeSheet(){
-  overlay.classList.remove("open");
-  document.body.style.overflow="";
+  overlay.classList.remove("open"); document.body.style.overflow="";
   setTimeout(()=>{overlay.hidden=true;},200);
 }
 $("#closeb").addEventListener("click",closeSheet);
@@ -552,6 +620,14 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.c
 
 /* ====== SEARCH ====== */
 $("#search").addEventListener("input",e=>{query=e.target.value;render();});
+
+/* ====== INIT ====== */
+document.addEventListener("DOMContentLoaded",()=>{
+  buildWeeks();
+  $("#search").placeholder=current.schema.searchPh;
+  setWeekContext(current.schema);
+  loadWeek(current);
+});
 </script>
 </body>
 </html>
