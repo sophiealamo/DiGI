@@ -342,6 +342,17 @@ function countryMeta(raw){
   for(const k in COUNTRIES){ if(name.includes(k)) return {name:k,...COUNTRIES[k]}; }
   return {name:name||"—",code:(name.slice(0,2)||"··").toUpperCase(),var:"--xx"};
 }
+// Lista amplia para distinguir una ficha real (tiene país) de una fila de
+// encabezado/categoría/consigna (no lo tiene). Solo se usa para validar filas.
+const KNOWN_COUNTRIES=["Argentina","Brasil","Brazil","Uruguay","Colombia","Chile",
+  "Trinidad y Tobago","México","Mexico","Perú","Peru","Ecuador","Bolivia","Paraguay",
+  "Venezuela","Costa Rica","Panamá","Panama","República Dominicana","Guatemala",
+  "Honduras","El Salvador","Nicaragua","Cuba","Puerto Rico","LAC","Regional"];
+function isCountryish(raw){
+  const n=clean(raw); if(!n||n.length>40) return false;
+  if(/pa[ií]s/i.test(n)) return false; // "País representado", etc.
+  return KNOWN_COUNTRIES.some(k=>n===k||n.includes(k));
+}
 
 /* ====== ESQUEMAS ======
    Cada esquema convierte una fila (array de celdas) en un item normalizado:
@@ -359,7 +370,7 @@ const SCHEMA_S2 = {
   searchPh:"Buscar por política, participante o país…",
   noun:"política", nounPl:"políticas",
   isHeader:r=>clean(r[0]).toLowerCase().startsWith("nombre")||clean(r[0]).toLowerCase().startsWith("semana"),
-  valid:r=>clean(r[0])&&clean(r[2]),
+  valid:r=>clean(r[0])&&clean(r[2])&&isCountryish(r[1]),
   parse(r){
     const tags=[]; if(clean(r[10])) tags.push("+ propuesta regulatoria");
     const sections=[
@@ -389,7 +400,7 @@ const SCHEMA_S1 = {
   searchPh:"Buscar por iniciativa, participante o país…",
   noun:"iniciativa", nounPl:"iniciativas",
   isHeader:r=>clean(r[0]).toLowerCase().startsWith("nombre")||clean(r[0]).toLowerCase().startsWith("pseudónimo")&&clean(r[2]).toLowerCase().includes("nombre"),
-  valid:r=>clean(r[0])&&clean(r[2]),
+  valid:r=>clean(r[0])&&clean(r[2])&&isCountryish(r[1]),
   parse(r){
     const tags=[];
     const edb=edicionesBadge(r[13]); if(edb) tags.push(edb);
